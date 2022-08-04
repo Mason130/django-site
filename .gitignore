@@ -1,4 +1,3 @@
-
 # Elastic Beanstalk Files
 .elasticbeanstalk/*
 !.elasticbeanstalk/*.cfg.yml
@@ -11,4 +10,3 @@ __pycache__
 
 # file that contains sensitive information
 db_info.txt
-/mysite/settings.py

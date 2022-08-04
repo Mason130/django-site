@@ -8,4 +8,4 @@ AWS Elastic Beanstalk deployed version: click [here][link]
 
 
 
-[link]: http://my-django-env.eba-vh9th3dv.us-west-2.elasticbeanstalk.com
+[link]: http://django-app-env.eba-6inayeed.us-west-2.elasticbeanstalk.com/

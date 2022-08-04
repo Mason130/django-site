@@ -26,7 +26,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = [
     '*',
-    'my-env.eba-nump35r2.us-east-2.elasticbeanstalk.com',
+    'django-app-env.eba-6inayeed.us-west-2.elasticbeanstalk.com/',
 ]
 
 # Application definition
@@ -84,10 +84,10 @@ WSGI_APPLICATION = 'mysite.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'ebdb',
-        'USER': 'chengyu',
+        'NAME': 'postgres',
+        'USER': 'postgres',
         'PASSWORD': 'Yc1009917006',
-        'HOST': 'aa161ri6h3g1h8c.ciwtxtgqt2xy.us-east-2.rds.amazonaws.com',
+        'HOST': 'database-1.ciwtxtgqt2xy.us-east-2.rds.amazonaws.com',
         'PORT': '5432',
     }
 }
