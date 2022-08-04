@@ -1,0 +1,14 @@
+
+# Elastic Beanstalk Files
+.elasticbeanstalk/*
+!.elasticbeanstalk/*.cfg.yml
+!.elasticbeanstalk/*.global.yml
+
+# cache file
+__pycache__
+.idea
+.DS_Store
+
+# file that contains sensitive information
+db_info.txt
+/mysite/settings.py
