@@ -1,11 +1,6 @@
-{% load static %}
-<title>Welcome</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@500&display=swap" rel="stylesheet">
-<link rel="stylesheet" type="text/css" href="{% static 'myapp/css/index.css' %}">
-<script src = "{% static 'myapp/js/home.js' %}"></script>
+{% include 'myapp/head.html' %}
 
+<body>
 <form action="{% url 'myapp:vote' question.id %}" method="post">
 {% csrf_token %}
 <fieldset>

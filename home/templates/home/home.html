@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load crispy_forms_filters %}
+{% load crispy_forms_tags %}
+
+{% include 'home/head.html' %}
+
+<body>
+{% include 'home/header.html' %}
+
+{% if messages %}
+    <ul class="messages">
+        {% for message in messages %}
+            <a{% if message.tags %} class="{{ message.tags }}"{% endif %} style="color: #002EA6">{{ message }}</a>
+        {% endfor %}
+    </ul>
+{% endif %}
+
+<main>
+    <!--Contact form-->
+    {% if user.is_authenticated %}
+        <div style="text-align:center;"><font1>You're now on the user page</font1></div>
+        <div>
+            <h4>Contact me</h4>
+            <p>Hi there, leave me a message, and I will reply you ASAP.</p>
+            <form method="post">
+                {% csrf_token %}
+                {{form.as_p}}
+                <button type="submit">Submit</button>
+            </form>
+        </div>
+    {% else %}
+        <div style="text-align:center;"><font1 >You're on the homepage</font1></div>
+        <div style="text-align:center;"><font1 style="font-size: 22px; color: #D7000F;">Please login or register first</font1></div>
+    {% endif %}
+</main>
+
+{% include 'home/footer.html' %}
+
+</body>
+</html>
