@@ -1,0 +1,13 @@
+li a {
+    font-family: 'Roboto', sans-serif;
+    font-size: 36px;
+    font-weight: normal;
+    color: green;
+}
+
+body {
+    background-image: url("../images/background.jpg");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}

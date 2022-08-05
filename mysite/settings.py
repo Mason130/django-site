@@ -22,7 +22,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-0i1ya4m@z&7-otndjh348r@l&t=y5!2)(@nsr$(*aoy8t!z)(r'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = [
     '*',
@@ -79,7 +79,7 @@ WSGI_APPLICATION = 'mysite.wsgi.application'
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 
 # PostgreSQL DB hosted by AWS RDS
-# Connect to DB locally (macos): psql --host=hostname --port=5432 --username=username --password --dbname=dbname 
+# Connect to DB locally (macos): psql --host='database-1.ciwtxtgqt2xy.us-east-2.rds.amazonaws.com' --port='5432' --username='postgres' --password --dbname='postgres'
 # Sensitive information has been encrypted
 DATABASES = {
     'default': {
