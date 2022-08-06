@@ -26,7 +26,9 @@ def home_response(request):
                 'message': form.cleaned_data['message'],
             }
             message = "\n".join(body.values())
-            form.save()
+            info = form.save(commit=False)
+            info.user = request.user
+            info.save()
             messages.success(request, "Message sent")
             try:
                 send_mail(subject, message, 'admin@example.com', ['admin@example.com'])

@@ -2,7 +2,7 @@ from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from django.forms import ModelForm
-from .models import Contactor
+from .models import Contact
 
 
 class NewUserForm(UserCreationForm):
@@ -10,7 +10,7 @@ class NewUserForm(UserCreationForm):
 
     class Meta:
         model = User
-        fields = ("username", "email", "password1", "password2")
+        fields = ("username", "first_name", "last_name", "email", "password1", "password2")
 
     def save(self, commit=True):
         user = super(NewUserForm, self).save(commit=False)
@@ -27,5 +27,5 @@ class ContactForm(ModelForm):
     message = forms.CharField(widget=forms.Textarea, max_length=2000)
 
     class Meta:
-        model = Contactor
+        model = Contact
         fields = ("first_name", "last_name", "email_address", "message")
