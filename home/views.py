@@ -87,7 +87,7 @@ def reset_request(request):
                     email_template_name = "home/reset_email.txt"
                     c = {
                         "email": user.email,
-                        'domain': '127.0.0.1:8000',
+                        'domain': 'my-env.eba-e7eetn7u.us-east-2.elasticbeanstalk.com',
                         'site_name': 'Website',
                         "uid": urlsafe_base64_encode(force_bytes(user.pk)),
                         'token': default_token_generator.make_token(user),
