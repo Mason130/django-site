@@ -28,13 +28,11 @@ def home_response(request):
             message = "\n".join(body.values())
             form.save()
             messages.success(request, "Message sent")
-
             try:
                 send_mail(subject, message, 'admin@example.com', ['admin@example.com'])
             except BadHeaderError:
                 return HttpResponse('Invalid header found.')
             return redirect("home")
-
     form = ContactForm()
     return render(request, "home/home.html", {'form': form})
 
@@ -44,7 +42,7 @@ def register_request(request):
         form = NewUserForm(request.POST)
         if form.is_valid():
             user = form.save()
-            login(request, user)
+            login(request, user, backend='django.contrib.auth.backends.ModelBackend')
             messages.success(request, "Registration successful.")
             return redirect("login")
         messages.error(request, "Unsuccessful registration. Invalid information.")
@@ -99,9 +97,7 @@ def reset_request(request):
                     try:
                         send_mail(subject, email, 'admin@example.com', [user.email], fail_silently=False)
                     except BadHeaderError:
-
                         return HttpResponse('Invalid header found.')
-
                     messages.success(request, 'A message with reset password instructions has been sent to your inbox.')
                     return redirect("home")
             messages.error(request, 'This email has not been registered yet.')
