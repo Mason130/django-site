@@ -10,3 +10,4 @@ __pycache__
 
 # file that contains sensitive information
 db_info.txt
+.env
