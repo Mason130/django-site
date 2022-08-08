@@ -32,7 +32,7 @@ ALLOWED_HOSTS = [
 
 CORS_ORIGIN_WHITELIST = [
      'http://localhost:8000',
-     # 'http://my-env.eba-e7eetn7u.us-east-2.elasticbeanstalk.com',
+     'http://my-env.eba-e7eetn7u.us-east-2.elasticbeanstalk.com',
 ]
 
 # Application definition
@@ -124,8 +124,9 @@ WSGI_APPLICATION = 'mysite.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 
-# PostgreSQL DB hosted by AWS RDS Connect to DB locally (macos): psql
-# psql --host='database-1.ciwtxtgqt2xy.us-east-2.rds.amazonaws.com' --port='5432' --username='postgres' --password --dbname='postgres'
+# PostgreSQL DB hosted by AWS RDS Connect to DB locally (macos): psql psql
+# --host='database-1.ciwtxtgqt2xy.us-east-2.rds.amazonaws.com' --port='5432' --username='postgres' --password
+# --dbname='postgres'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
