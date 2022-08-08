@@ -2,12 +2,15 @@
 <html lang="en">
 {% load crispy_forms_filters %}
 {% load crispy_forms_tags %}
-
+{% load static %}
 {% include 'home/head.html' %}
+<link rel="stylesheet" type="text/css" href="{% static 'home/css/home.css' %}">
 
 <body>
+
 {% include 'home/header.html' %}
 
+<!-- Message display -->
 {% if messages %}
     <ul class="messages">
         {% for message in messages %}
