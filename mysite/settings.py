@@ -32,7 +32,7 @@ ALLOWED_HOSTS = [
 
 CORS_ORIGIN_WHITELIST = [
      'http://localhost:8000',
-     'http://my-env.eba-e7eetn7u.us-east-2.elasticbeanstalk.com',
+     # 'http://my-env.eba-e7eetn7u.us-east-2.elasticbeanstalk.com',
 ]
 
 # Application definition
