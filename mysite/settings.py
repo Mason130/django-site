@@ -30,6 +30,11 @@ ALLOWED_HOSTS = [
     'my-env.eba-e7eetn7u.us-east-2.elasticbeanstalk.com',
 ]
 
+CORS_ORIGIN_WHITELIST = [
+     'http://localhost:8000',
+     'http://my-env.eba-e7eetn7u.us-east-2.elasticbeanstalk.com',
+]
+
 # Application definition
 
 INSTALLED_APPS = [
@@ -48,6 +53,8 @@ INSTALLED_APPS = [
     'allauth.socialaccount',
     'allauth.socialaccount.providers.google',
     'allauth.socialaccount.providers.github',
+    'corsheaders',
+    'rest_framework',
 ]
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
@@ -80,7 +87,7 @@ SOCIALACCOUNT_PROVIDERS = {
         'AUTH_PARAMS': {
             'access_type': 'online',
         }
-    }
+    },
 }
 
 MIDDLEWARE = [
@@ -91,6 +98,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
 ]
 
 ROOT_URLCONF = 'mysite.urls'

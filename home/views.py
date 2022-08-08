@@ -8,10 +8,18 @@ from django.shortcuts import render, redirect
 from django.template.loader import render_to_string
 from django.utils.encoding import force_bytes
 from django.utils.http import urlsafe_base64_encode
-
 from .forms import NewUserForm, ContactForm
 from django.contrib.auth import login, authenticate, logout
 from django.contrib import messages
+from rest_framework import viewsets
+from .serializers import ContactSerializer
+from .models import Contact
+from django.contrib.auth.mixins import LoginRequiredMixin
+
+
+class ContactView(LoginRequiredMixin, viewsets.ModelViewSet):
+    serializer_class = ContactSerializer
+    queryset = Contact.objects.all()
 
 
 def home_response(request):
@@ -22,7 +30,7 @@ def home_response(request):
             body = {
                 'first_name': form.cleaned_data['first_name'],
                 'last_name': form.cleaned_data['last_name'],
-                'email': form.cleaned_data['email_address'],
+                'email_address': form.cleaned_data['email_address'],
                 'message': form.cleaned_data['message'],
             }
             message = "\n".join(body.values())

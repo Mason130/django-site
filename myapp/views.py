@@ -6,6 +6,18 @@ from .models import Choice, Question
 from django.utils import timezone
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.decorators import login_required
+from rest_framework import viewsets
+from .serializers import ChoiceSerializer, QuestionSerializer
+
+
+class QuestionView(LoginRequiredMixin, viewsets.ModelViewSet):
+    serializer_class = QuestionSerializer
+    queryset = Question.objects.all()
+
+
+class ChoiceView(LoginRequiredMixin, viewsets.ModelViewSet):
+    serializer_class = ChoiceSerializer
+    queryset = Choice.objects.all()
 
 
 class IndexView(LoginRequiredMixin, generic.ListView):

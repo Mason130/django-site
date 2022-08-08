@@ -17,11 +17,21 @@ from django.contrib import admin
 from django.urls import include, path
 from django.contrib.auth import views as auth_views
 from home import views
+from myapp import views as v
+from rest_framework import routers
 
 
+# register APIs
+router = routers.DefaultRouter()
+router.register(r'contacts', views.ContactView, 'contact')
+router.register(r'choices', v.ChoiceView, 'choice')
+router.register(r'questions', v.QuestionView, 'question')
+
+# urls
 urlpatterns = [
     path('', views.home_response, name='home'),
     path('hereis-the-admin-loggin-page9527-li/', admin.site.urls),
+    path('hereis-the-api-page7054-li/', include(router.urls)),
     path('accounts/', include('allauth.urls')),
     path('myapp/', include('myapp.urls')),
     path('login/', views.login_request, name='login'),
