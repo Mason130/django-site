@@ -13,3 +13,11 @@
 .dropdown-toggle {
   outline: 0;
 }
+
+body {
+  padding-bottom: 3px;
+}
+
+.navbar {
+  margin-top: -16px;
+}

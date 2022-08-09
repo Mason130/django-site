@@ -3,7 +3,7 @@
     <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: black;">
         <div class="container-xl">
             <a class="navbar-brand" href="/" >
-                <span class="material-symbols-outlined" style="color: #FF770F;font-size:32px;">home</span>
+                <span class="material-symbols-outlined" style="color: #FF770F; font-size:32px;">home</span>
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -11,17 +11,18 @@
 
             <div class="collapse navbar-collapse" id="navbarText" style="text-align: right;">
                 <ul class="navbar-nav mr-auto">
-                    <li class="nav-item"><a href="/" class="nav-link px-2 text-white">Home</a></li>
+                    <li class="nav-item"><a href="/" class="nav-link" style="color: #FF770f; font-weight: bold;">Home</a></li>
                     <li class="nav-item"><a href="#" class="nav-link px-2 text-white">Features</a></li>
                     <li class="nav-item"><a href="#" class="nav-link px-2 text-white">About</a></li>
-
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <a class="nav-link dropdown-toggle text-white" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                             More
                         </a>
-                        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                            <a class="dropdown-item" href="/myapp">Survey</a>
-                        </div>
+                        <ul class="dropdown-menu dropdown-menu-dark">
+                            <li><a class="dropdown-item text-white" href="/myapp">Survey</a></li>
+                            <li><a class="dropdown-item text-white" href="#">Action2</a></li>
+                            <li><a class="dropdown-item text-white" href="#">Action3</a></li>
+                        </ul>
                     </li>
                 </ul>
             </div>
