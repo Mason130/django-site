@@ -27,6 +27,7 @@ DEBUG = config('DEBUG', cast=bool)
 
 ALLOWED_HOSTS = [
     '*',
+    '192.168.1.37'
     'my-env.eba-e7eetn7u.us-east-2.elasticbeanstalk.com',
 ]
 

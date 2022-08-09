@@ -1,44 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
 {% load static %}
-{% include 'home/head.html' %}
-{% include 'home/header.html' %}
-
 {% load crispy_forms_filters %}
 {% load crispy_forms_tags %}
-{% block content %}
 {% load crispy_forms_tags %}
 {% load socialaccount %}
+{% include 'home/head.html' %}
 
-<!--Login-->
-{% if messages %}
-    <ul class="messages">
-        {% for message in messages %}
-            <a{% if message.tags %} class="{{ message.tags }}"{% endif %} style="color: blue">{{ message }}</a>
-        {% endfor %}
-    </ul>
-{% endif %}
+<body>
 
-<div class="container py-5">
-    <h1>Login</h1>
-    <form method="POST">
-        {% csrf_token %}
-        {{ login_form|crispy }}
-        <button class="btn btn-primary" type="submit">Login </button>
-        <div style="width: 100%; height: 15px; border-bottom: 1px; text-align: left"></div>
-        <!-- Google sign in -->
-        <div class=" signin text-left">
-            <a href="{% provider_login_url 'google' %}" class="text-dark"><img src="{% static "home/images/google.png" %}" style="width:12rem; height:auto" alt=""></a>
-        </div>
-        <div style="width: 100%; height: 5px; border-bottom: 1px; text-align: left"></div>
-        <!-- Github sign in -->
-        <div class=" signin text-left">
-            <a href="{% provider_login_url 'github' %}" class="text-dark"><img src="{% static "home/images/github.png" %}" style="width:12rem; height:auto" alt=""></a>
-        </div>
-    </form>
-    <br>
-    <br>
-    <p class="text-center"> Don't have an account? <a href="/register">Create an account</a>.</p>
-    <p class="text-center"><a href="/password_reset">Forgot password?</a></p>
-</div>
+{% include 'home/header.html' %}
 
-{% endblock %}
+<main>
+    <!--Login-->
+    {% if messages %}
+        <ul class="messages">
+            {% for message in messages %}
+                <a{% if message.tags %} class="{{ message.tags }}"{% endif %} style="color: blue">{{ message }}</a>
+            {% endfor %}
+        </ul>
+    {% endif %}
+
+    <div class="container py-5">
+        <h1>Login</h1>
+        <form method="POST">
+            {% csrf_token %}
+            {{ login_form|crispy }}
+            <div style="width: 100%; height: 15px; border-bottom: 1px; text-align: left"></div>
+            <button class="btn btn-primary" type="submit">Login </button>
+            <div style="width: 100%; height: 15px; border-bottom: 1px; text-align: left"></div>
+            <!-- Google sign in -->
+            <div class=" signin text-left">
+                <a href="{% provider_login_url 'google' %}" class="text-dark"><img src="{% static "home/images/google.png" %}" style="width:12rem; height:auto" alt=""></a>
+            </div>
+            <div style="width: 100%; height: 5px; border-bottom: 1px; text-align: left"></div>
+            <!-- GitHub sign in -->
+            <div class=" signin text-left">
+                <a href="{% provider_login_url 'github' %}" class="text-dark"><img src="{% static "home/images/github.png" %}" style="width:12rem; height:auto" alt=""></a>
+            </div>
+        </form>
+        <br>
+        <br>
+        <p class="text-center"> Don't have an account? <a href="/register">Create an account</a>.</p>
+        <p class="text-center"><a href="/password_reset">Forgot password?</a></p>
+    </div>
+</main>
+
 {% include 'home/footer.html' %}
+
+</body>
+</html>

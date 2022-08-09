@@ -1,28 +1,35 @@
-{% include 'home/head.html' %}
-{% include 'home/header.html' %}
-
-{% block content %} 
+<!DOCTYPE html>
+<html lang="en">
 {% load crispy_forms_filters %}
 {% load crispy_forms_tags %}
+{% include 'home/head.html' %}
 
-<!--Register-->
-{% if messages %}
-    <ul class="messages">
-        {% for message in messages %}
-            <a{% if message.tags %} class="{{ message.tags }}"{% endif %} style="color: blue">{{ message }}</a>
-        {% endfor %}
-    </ul>
-{% endif %}
+<body>
 
-<div class="container py-5">
-	<h1>Register</h1>
-	<form method="POST">
-		{% csrf_token %}
-		{{ register_form|crispy }}                    
-		<button class="btn btn-primary" type="submit">Register</button>
-	</form>
-	<p class="text-center">If you already have an account, <a href="/login">login</a> instead.</p>
-</div>
+{% include 'home/header.html' %}
 
-{% endblock %}
+<main>
+    <!--Register-->
+    {% if messages %}
+        <ul class="messages">
+            {% for message in messages %}
+                <a{% if message.tags %} class="{{ message.tags }}"{% endif %} style="color: blue">{{ message }}</a>
+            {% endfor %}
+        </ul>
+    {% endif %}
+
+    <div class="container py-5">
+        <h1>Register</h1>
+        <form method="POST">
+            {% csrf_token %}
+            {{ register_form|crispy }}
+            <button class="btn btn-primary" type="submit">Register</button>
+        </form>
+        <p class="text-center">If you already have an account, <a href="/login">login</a> instead.</p>
+    </div>
+</main>
+
 {% include 'home/footer.html' %}
+
+</body>
+</html>

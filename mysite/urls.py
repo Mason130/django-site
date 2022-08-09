@@ -30,6 +30,7 @@ router.register(r'questions', v.QuestionView, 'question')
 # urls
 urlpatterns = [
     path('', views.home_response, name='home'),
+    path('users/', views.user_response, name='user'),
     path('hereis-the-admin-loggin-page9527-li/', admin.site.urls),
     path('hereis-the-api-page7054-li/', include(router.urls)),
     path('accounts/', include('allauth.urls')),

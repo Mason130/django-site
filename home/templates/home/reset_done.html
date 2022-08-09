@@ -1,22 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
 {% include 'home/head.html' %}
+
+<body>
+
 {% include 'home/header.html' %}
 
-{% block content %}
+<main>
+    <!-- Message display -->
+    {% if messages %}
+        <ul class="messages">
+            {% for message in messages %}
+                <a{% if message.tags %} class="{{ message.tags }}"{% endif %} style="color: #002EA6">{{ message }}</a>
+            {% endfor %}
+        </ul>
+    {% endif %}
 
-	{% load crispy_forms_tags %}
-    {% load crispy_forms_filters %}
+    <!--Password reset sent-->
+    <div class="container p-5">
+        <h2 class="font-weight-bold mt-3">Password reset sent</h2>
+        <hr>
+        <p>We've emailed you instructions for setting your password, if an account exists with the email you entered. You should receive them shortly.<br>If you don't receive an email, please make sure you've entered the address you registered with, and check your spam folder.</p>
+    </div>
+</main>
 
-	<!--Reset Password-->
-	<div class="container p-5">
-  	 	<h2 class="font-weight-bold mt-3">Reset Password</h2>
-		<hr>
-		<p>Forgotten your password? Enter your email address below, and we'll email instructions for setting a new one.</p>
-        <form method="POST">
-            {% csrf_token %}
-            {{ password_reset_form|crispy }}                    
-            <button class="btn btn-primary" type="submit">Send email</button>
-        </form>
-  	</div> 
-
-{% endblock %}
 {% include 'home/footer.html' %}
+
+</body>
+</html>

@@ -1,22 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load crispy_forms_tags %}
+{% load crispy_forms_filters %}
 {% include 'home/head.html' %}
+
+<body>
+
 {% include 'home/header.html' %}
 
-{% block content %}
-
-  {% load crispy_forms_tags %}
-  {% load crispy_forms_filters %}
-
-  <!--Password Reset Confirm-->
+<main>
+    <!--Password Reset Confirm-->
     <div class="container p-5">
-	    <h2 class="font-weight-bold mt-3">Password Reset Confirm</h2>
+        <h2 class="font-weight-bold mt-3">Password Reset Confirm</h2>
 		<hr>
         <p>Please enter your new password.</p>
         <form method="POST">
             {% csrf_token %}
-            {{ form|crispy }}                    
+            {{ form|crispy }}
+            <div style="width: 100%; height: 15px; border-bottom: 1px; text-align: left"></div>
             <button class="btn btn-primary" type="submit">Reset password</button>
         </form>
     </div>
+</main>
 
-{% endblock %}
 {% include 'home/footer.html' %}
+
+</body>
+</html>

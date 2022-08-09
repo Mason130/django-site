@@ -23,6 +23,10 @@ class ContactView(LoginRequiredMixin, viewsets.ModelViewSet):
 
 
 def home_response(request):
+    return render(request, "home/home.html")
+
+
+def user_response(request):
     if request.method == 'POST':
         form = ContactForm(request.POST)
         if form.is_valid():
@@ -42,9 +46,9 @@ def home_response(request):
                 send_mail(subject, message, 'admin@example.com', ['admin@example.com'])
             except BadHeaderError:
                 return HttpResponse('Invalid header found.')
-            return redirect("home")
+            return redirect("user")
     form = ContactForm()
-    return render(request, "home/home.html", {'form': form})
+    return render(request, "home/user.html", {'form': form})
 
 
 def register_request(request):
@@ -70,7 +74,7 @@ def login_request(request):
             if user is not None:
                 login(request, user, backend='django.contrib.auth.backends.ModelBackend')
                 messages.info(request, f"You are now logged in as {username}.")
-                return redirect("home")
+                return redirect("user")
             else:
                 messages.error(request, "Invalid username or password.")
         else:
@@ -109,7 +113,7 @@ def reset_request(request):
                     except BadHeaderError:
                         return HttpResponse('Invalid header found.')
                     messages.success(request, 'A message with reset password instructions has been sent to your inbox.')
-                    return redirect("home")
+                    return redirect("password_reset_done")
             messages.error(request, 'This email has not been registered yet.')
     password_reset_form = PasswordResetForm()
     return render(request=request, template_name="home/reset.html",
