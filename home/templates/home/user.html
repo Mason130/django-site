@@ -7,7 +7,7 @@
 <link href="{% static 'home/css/sidebars.css' %}" rel="stylesheet">
 <script src="{% static 'home/js/sidebars.js' %}"></script>
 
-<body>
+<body style="background-color: black;">
 
 {% include 'home/header.html' %}
 
@@ -22,7 +22,7 @@
 
 <main class="d-flex flex-nowrap">
     <div class="d-flex flex-nowrap">
-
+        <!-- Sidebar -->
         <div class="flex-shrink-0 p-3 bg-white" style="width: 280px;">
             <a href="/" class="d-flex align-items-center pb-3 mb-3 link-dark text-decoration-none border-bottom">
                 <svg class="bi pe-none me-2" width="30" height="24"><use xlink:href="#bootstrap"></use></svg>
@@ -86,16 +86,54 @@
                 </li>
             </ul>
         </div>
+        
+        <!-- User panel -->
+        <div class="flex-shrink-0 p-3 bg-dark" style="width: 720px;" align="center">
+            <span class="fs-5 fw-bold text-danger">Message Board</span>
+            <div class="bg-primary" style="height: 350px; width: 680px;" align="left">
+                {% if rets %}
+                <ul>
+                    {% for r in rets %}
+                    <li>
+                        {% if r.user_id is 1 %}
+                        <div class="fs-5 fw-semibold text-light">{{ "(Reply) " }}{{ r.message }}</div>
+                        {% else %}
+                        <div class="fs-5 fw-semibold text-warning">{{ r.message }}</div>
+                        {% endif %}
+                        <div class="fs-6 text-dark">{{ r.received_date }}</div>
+                    </li>
+                    {% endfor %}
+                </ul>
+                {% else %}
+                <p>No content yet.</p>
+                {% endif %}
+            </div>
+
+            <br>
+            <div>
+                <form method="post">
+                    {% csrf_token %}
+                    <p>
+                        <label class="fs-5 fw-bold text-success" for="id_message">Type your message</label>
+                        <textarea class="bg-dark fs-6 fw-semibold text-white" name="message" cols="67" rows="5" maxlength="1000" required id="id_message"></textarea>
+                    </p>
+                    <button class="btn btn-outline-success" type="submit">Send</button>
+                </form>
+            </div>
+        </div>
 
         <!--Contact form-->
-        <div style="margin-left: 8px">
-            <h4>Contact me</h4>
-            <p>Hi there, leave me a message, and I will reply you ASAP.</p>
-            <form method="post">
+        <div class="bg-secondary">
+            <div class="text-light" style="margin-left: 8px">
+                <br><br><br><br><br>
+                <h4>Contact me</h4>
+                <p>Hi there, leave me a message, and I will reply you ASAP.</p>
+                <form method="post">
                 {% csrf_token %}
                 {{form.as_p}}
-                <button type="submit">Submit</button>
-            </form>
+                <button class="btn btn-danger" type="submit">Submit</button>
+                </form>
+            </div>
         </div>
     </div>
 </main>

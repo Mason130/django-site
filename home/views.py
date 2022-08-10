@@ -1,3 +1,4 @@
+import re
 from django.contrib.auth.forms import AuthenticationForm, PasswordResetForm
 from django.contrib.auth.models import User
 from django.contrib.auth.tokens import default_token_generator
@@ -8,12 +9,12 @@ from django.shortcuts import render, redirect
 from django.template.loader import render_to_string
 from django.utils.encoding import force_bytes
 from django.utils.http import urlsafe_base64_encode
-from .forms import NewUserForm, ContactForm
+from .forms import NewUserForm, ContactForm, MessageForm
 from django.contrib.auth import login, authenticate, logout
 from django.contrib import messages
 from rest_framework import viewsets
 from .serializers import ContactSerializer
-from .models import Contact
+from .models import Contact, Message
 from django.contrib.auth.mixins import LoginRequiredMixin
 
 
@@ -27,8 +28,18 @@ def home_response(request):
 
 
 def user_response(request):
+    message_list = Message.objects.filter(user=request.user).order_by('-received_date')[:3]
+    
+    if request.user.id == 1 :
+        response_list = Message.objects.filter(user=2).order_by('-received_date')[:3]
+    else:
+        response_list = Message.objects.filter(user=1).order_by('-received_date')[:3]
+    
+    ret_list = message_list.union(response_list).order_by('received_date')
+    
     if request.method == 'POST':
         form = ContactForm(request.POST)
+        form1 = MessageForm(request.POST)
         if form.is_valid():
             subject = "Website Inquiry"
             body = {
@@ -47,8 +58,22 @@ def user_response(request):
             except BadHeaderError:
                 return HttpResponse('Invalid header found.')
             return redirect("user")
+
+        if form1.is_valid():
+            subject = "Website Inquiry"
+            body = {
+                'message': form.cleaned_data['message'],
+            }
+            message = "\n".join(body.values())
+            info = form1.save(commit=False)
+            info.user = request.user
+            info.save()
+            messages.success(request, "Message sent")
+            return redirect("user")
+
     form = ContactForm()
-    return render(request, "home/user.html", {'form': form})
+    form1 = MessageForm()
+    return render(request, "home/user.html", {'rets': ret_list,'form': form, 'form1': form1,})
 
 
 def register_request(request):

@@ -125,7 +125,7 @@ WSGI_APPLICATION = 'mysite.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 
-# PostgreSQL DB hosted by AWS RDS Connect to DB locally (macos): psql psql
+# PostgreSQL DB hosted by AWS RDS Connect to DB locally (macos): psql
 # --host='database-1.ciwtxtgqt2xy.us-east-2.rds.amazonaws.com' --port='5432' --username='postgres' --password
 # --dbname='postgres'
 DATABASES = {
