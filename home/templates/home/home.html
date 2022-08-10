@@ -27,23 +27,23 @@
             <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="3" aria-label="Slide 4"></button>
         </div>
 
-        <div class="carousel-inner">
-            <div class="carousel-item active">
-                <img class="d-block w-100" src="{% static 'home/images/1.png' %}" alt="1">
+        <div class="carousel-inner bg-dark" align="center">
+            <div class="carousel-item active"> 
+                <img class="center-block" src="{% static 'home/images/1.png' %}" alt="1">
                 <div class="container">
                     <div class="carousel-caption text-start">
-                        <h1>Be a user.</h1>
+                        <h1>Be a user</h1>
                         <p>Not many functionalities so far though</p>
-                        <p><a class="btn btn-lg btn-primary" href="/register">Sign up today</a></p>
+                        <p><a class="btn btn-lg btn-primary" href="/register">Sign up</a></p>
                     </div>
                 </div>
             </div>
 
             <div class="carousel-item">
-                <img class="d-block w-100" src="{% static 'home/images/2.png' %}" alt="2">
+                <img class="center-block" src="{% static 'home/images/2.png' %}" alt="2">
                 <div class="container">
                     <div class="carousel-caption">
-                        <h1>Powerful Django!</h1>
+                        <h1>Powerful Django</h1>
                         <p>Ridiculously fast, Reassuringly secure, Exceedingly scalable</p>
                         <p><a class="btn btn-lg btn-primary" href="https://www.djangoproject.com">Learn more</a></p>
                     </div>
@@ -51,19 +51,18 @@
             </div>
 
             <div class="carousel-item">
-                <img class="d-block w-100" src="{% static 'home/images/3.png' %}" alt="3">
+                <img class="center-block" src="{% static 'home/images/3.png' %}" alt="3">
                 <div class="container">
                     <div class="carousel-caption text-end">
-                        <h1>Considering a cat?</h1>
+                        <h1>Considering a cat</h1>
                         <p>Why not an adorable british shorthair</p>
-                        <p><a class="btn btn-lg btn-primary" href="https://en.wikipedia.org/wiki/British_Shorthair">Take me home</a></p>
+                        <p><a class="btn btn-lg btn-primary" href="https://en.wikipedia.org/wiki/British_Shorthair">Wiki</a></p>
                     </div>
                 </div>
             </div>
 
             <div class="carousel-item">
-                <img class="d-block w-100" src="{% static 'home/images/4.png' %}" alt="4">
-{#              <svg class="bd-placeholder-img" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false"><rect width="100%" height="100%" fill="#777"/></svg>#}
+                <img class="center-block" src="{% static 'home/images/4.png' %}" alt="4">
                 <div class="container">
                     <div class="carousel-caption text-start">
                         <h1>Nothing yet</h1>
@@ -88,6 +87,7 @@
     <!-- Wrap the rest of the page in another container to center all the content. -->
     <div class="container marketing">
         <!-- Three columns of text below the carousel -->
+        {% comment %}
         <div class="row">
             <div class="col-lg-4">
                 <img class="bd-placeholder-img rounded-circle" src="{% static 'home/images/author.png' %}" alt="c1">
@@ -96,7 +96,6 @@
                 <p><a class="btn btn-secondary" href="#">View bio &raquo;</a></p>
             </div><!-- /.col-lg-4 -->
         </div><!-- /.row -->
-            {% comment %}
             <div class="col-lg-4">
                 <svg class="bd-placeholder-img rounded-circle" width="140" height="140" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 140x140" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#777"/><text x="50%" y="50%" fill="#777" dy=".3em">140x140</text></svg>
                 <h2 class="fw-normal">Heading</h2>

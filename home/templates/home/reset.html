@@ -1,5 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
+{% load crispy_forms_tags %}
+{% load crispy_forms_filters %}
 {% include 'home/head.html' %}
 
 <body>
@@ -7,9 +9,7 @@
 {% include 'home/header.html' %}
 
 <main>
-    {% load crispy_forms_tags %}
-    {% load crispy_forms_filters %}
-
+    <!-- Message display -->
     {% if messages %}
         <ul class="messages">
             {% for message in messages %}

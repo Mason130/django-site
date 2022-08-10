@@ -28,18 +28,21 @@ def home_response(request):
 
 
 def user_response(request):
+    user_info = User.objects.get(id=request.user.id)
     message_list = Message.objects.filter(user=request.user).order_by('-received_date')[:3]
     
-    if request.user.id == 1 :
+    if request.user.is_staff:
         response_list = Message.objects.filter(user=2).order_by('-received_date')[:3]
     else:
         response_list = Message.objects.filter(user=1).order_by('-received_date')[:3]
-    
+
     ret_list = message_list.union(response_list).order_by('received_date')
     
     if request.method == 'POST':
+
         form = ContactForm(request.POST)
         form1 = MessageForm(request.POST)
+
         if form.is_valid():
             subject = "Website Inquiry"
             body = {
@@ -73,7 +76,7 @@ def user_response(request):
 
     form = ContactForm()
     form1 = MessageForm()
-    return render(request, "home/user.html", {'rets': ret_list,'form': form, 'form1': form1,})
+    return render(request, "home/user.html", {'rets': ret_list, 'user_info': user_info, 'form': form, 'form1': form1,})
 
 
 def register_request(request):
