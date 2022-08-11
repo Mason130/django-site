@@ -29,12 +29,12 @@ def home_response(request):
 
 def user_response(request):
     user_info = User.objects.get(id=request.user.id)
-    message_list = Message.objects.filter(user=request.user).order_by('-received_date')[:10]
+    message_list = Message.objects.filter(user=request.user).order_by('-received_date')
     
     if request.user.is_staff:
-        response_list = Message.objects.filter(user=2).order_by('-received_date')[:10]
+        response_list = Message.objects.filter(user=2).order_by('-received_date')
     else:
-        response_list = Message.objects.filter(user=1).order_by('-received_date')[:10]
+        response_list = Message.objects.filter(user=1).order_by('-received_date')
 
     ret_list = message_list.union(response_list).order_by('received_date')
     
