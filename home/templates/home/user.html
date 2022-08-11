@@ -6,6 +6,7 @@
 {% include 'home/head.html' %}
 <link href="{% static 'home/css/sidebars.css' %}" rel="stylesheet">
 <script src="{% static 'home/js/sidebars.js' %}"></script>
+<script src="{% static 'home/js/scrollbar.js' %}"></script>
 
 <body style="background-color: black;">
 
@@ -88,10 +89,10 @@
         </div>
         
         <!-- User panel -->
-        <div class="flex-shrink-0 p-3 bg-dark" style="width: 700px;" align="center">
+        <div class="flex-shrink-0 p-3 bg-dark" style="width: 696px;" align="center">
             <span class="fs-5 fw-bold text-danger">Message Board</span>
             <hr class="bg-light">
-            <div class="bg-dark" style="height: 300px; width: 660px;" align="left">
+            <div id="scroll" class="bg-dark scrollarea" style="height: 300px; width: 660px; overflow-y: auto;" align="left">
                 {% if user_info.id != 1 %}
                 <ul>
                     {% for r in rets %}
@@ -140,7 +141,7 @@
             </div>
             <hr class="bg-light">
 
-            <div>
+            <div class="scrollarea" style="overflow-y: auto;">
                 <form method="post">
                     {% csrf_token %}
                     <p>
@@ -153,11 +154,12 @@
         </div>
 
         <!--Contact form-->
-        <div class="flex-shrink-0 p-3 bg-secondary" style="width: 444px;" align="center">
-            <div class="bg-dark" style="height: 115px; width: 115px;"></div>
-
-            <div class="text-light fs-6" align="left">
-                <hr>
+        <div class="flex-shrink-0 p-3 bg-secondary" style="width: 448px;" align="center">
+            <div class="bg-dark" style="height: 200px; width: 200px;"></div>
+            <hr class="bg-light">
+            <br><br><br><br><br><br>
+            <hr class="bg-light">
+            <div class="text-light fs-6 scrollarea" style="height: 200px; width: 428px; overflow-y: auto;" align="left">
                 <h4 class="fs-5">Contact me</h4>
                 {% comment %} <p>Have questions? Leave me a message, and I will reply you ASAP.</p> {% endcomment %}
                 <form method="post">

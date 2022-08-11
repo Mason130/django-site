@@ -59,6 +59,29 @@ main {
     background-color: #d2f4ea;
 }
 
-.scrollarea {
-    overflow-y: auto;
+.scrollarea::-webkit-scrollbar {
+    width: 12px;
+}
+
+.scrollarea::-webkit-scrollbar-track {
+    /* color of the tracking area */
+    background: #E7E7E7;
+    border-radius: 20px;
+}
+
+.scrollarea::-webkit-scrollbar-thumb {
+    /* color of the scroll thumb */
+    background: #3C3C3C;
+    /* roundness of the scroll thumb */
+    border-radius: 20px;
+    /* creates padding around scroll thumb */
+    border: 1px solid #E7E7E7;
+}
+
+
+/* Handle on hover */
+
+.scrollarea::-webkit-scrollbar-thumb:hover {
+    background: #1B1B1B;
+    border: 1px solid #E7E7E7;
 }
