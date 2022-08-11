@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load crispy_forms_filters %}
+{% load crispy_forms_tags %}
+{% load static %}
+{% include 'home/head.html' %}
+
+<link href="{% static 'home/css/sidebars.css' %}" rel="stylesheet">
+<script src="{% static 'home/js/scrollbar.js' %}"></script>
+
+<body style="background-color: black;">
+
+{% include 'home/header.html' %}
+
+<main>  
+    <!-- Chat panel -->
+    <div class="flex-shrink-0 p-3 bg-dark" style="width: 800px; margin:0 auto;" align="center">
+        <span class="fs-5 fw-bold text-danger">Message Board</span>
+        
+        <hr class="bg-light"> 
+        <div id="scroll" class="scrollarea" style="height: 300px; width: 660px; overflow-y: auto;" align="left">
+
+            {% if user_info.is_staff %}
+            <ul>
+                {% for r in rets %}
+                <li>
+                    {% if r.user_id is user_info.id %}
+                    <div class="fs-5 fw-semibold text-warning">
+                        {{"Me: "}}
+                        {{ r.message }}
+                    </div>
+                    {% else %}
+                    <div class="fs-5 fw-semibold text-primary">
+                        {{ contact.username }}{{": "}}
+                        {{ r.message }}
+                    </div>
+                    {% endif %}
+                    <div class="text-light" style="font-size: 11px; text-align: left">
+                        {{ r.received_date }}
+                    </div>
+                </li>
+                {% endfor %}
+            </ul>
+
+            {% else %}
+            <ul>
+                {% for r in rets %}
+                <li>
+                    {% if r.user_id is user_info.id %}
+                    <div class="fs-5 fw-semibold text-warning">
+                        {{"Me: "}}
+                        {{ r.message }}
+                    </div>
+                    {% else %}
+                    <div class="fs-5 fw-semibold text-primary">
+                        {{"Cheng Yu: "}}
+                        {{ r.message }}
+                    </div>
+                    {% endif %}
+                    <div class="text-light" style="font-size: 11px; text-align: left">
+                        {{ r.received_date }}
+                    </div>
+                </li>
+                {% endfor %}
+            </ul>
+            {% endif %}
+            
+        </div>
+        <hr class="bg-light">
+
+        <div class="scrollarea" style="overflow-y: auto;">
+            <form method="post">
+                {% csrf_token %}
+                <p>
+                    <label class="fs-5 fw-bold text-success" for="id_message">Type your message</label><br>
+                    <textarea class="bg-dark fs-6 fw-semibold text-white" name="message" cols="64" rows="5" maxlength="1000" required id="id_message"></textarea>
+                </p>
+                <button class="btn btn-outline-success" type="submit">Send</button>
+            </form>
+        </div>
+    </div>
+
+</main>
+
+{% include 'home/footer.html' %}
+
+</body>
+</html>

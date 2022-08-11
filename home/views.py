@@ -1,21 +1,22 @@
-import re
 from django.contrib.auth.forms import AuthenticationForm, PasswordResetForm
 from django.contrib.auth.models import User
 from django.contrib.auth.tokens import default_token_generator
 from django.core.mail import send_mail, BadHeaderError
 from django.db.models import Q
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render, redirect
 from django.template.loader import render_to_string
 from django.utils.encoding import force_bytes
 from django.utils.http import urlsafe_base64_encode
-from .forms import NewUserForm, ContactForm, MessageForm
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth import login, authenticate, logout
 from django.contrib import messages
+from django.urls import reverse
 from rest_framework import viewsets
+from .forms import NewUserForm, ContactForm, MessageForm
 from .serializers import ContactSerializer
 from .models import Contact, Message
-from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.decorators import login_required
 
 
 class ContactView(LoginRequiredMixin, viewsets.ModelViewSet):
@@ -25,58 +26,6 @@ class ContactView(LoginRequiredMixin, viewsets.ModelViewSet):
 
 def home_response(request):
     return render(request, "home/home.html")
-
-
-def user_response(request):
-    user_info = User.objects.get(id=request.user.id)
-    message_list = Message.objects.filter(user=request.user).order_by('-received_date')
-    
-    if request.user.is_staff:
-        response_list = Message.objects.filter(user=2).order_by('-received_date')
-    else:
-        response_list = Message.objects.filter(user=1).order_by('-received_date')
-
-    ret_list = message_list.union(response_list).order_by('received_date')
-    
-    if request.method == 'POST':
-
-        form = ContactForm(request.POST)
-        form1 = MessageForm(request.POST)
-
-        if form.is_valid():
-            subject = "Website Inquiry"
-            body = {
-                'first_name': form.cleaned_data['first_name'],
-                'last_name': form.cleaned_data['last_name'],
-                'email_address': form.cleaned_data['email_address'],
-                'message': form.cleaned_data['message'],
-            }
-            message = "\n".join(body.values())
-            info = form.save(commit=False)
-            info.user = request.user
-            info.save()
-            messages.success(request, "Message sent")
-            try:
-                send_mail(subject, message, 'admin@example.com', ['admin@example.com'])
-            except BadHeaderError:
-                return HttpResponse('Invalid header found.')
-            return redirect("user")
-
-        if form1.is_valid():
-            subject = "Website Inquiry"
-            body = {
-                'message': form.cleaned_data['message'],
-            }
-            message = "\n".join(body.values())
-            info = form1.save(commit=False)
-            info.user = request.user
-            info.save()
-            messages.success(request, "Message sent")
-            return redirect("user")
-
-    form = ContactForm()
-    form1 = MessageForm()
-    return render(request, "home/user.html", {'rets': ret_list, 'user_info': user_info, 'form': form, 'form1': form1,})
 
 
 def register_request(request):
@@ -146,3 +95,57 @@ def reset_request(request):
     password_reset_form = PasswordResetForm()
     return render(request=request, template_name="home/reset.html",
                   context={"password_reset_form": password_reset_form})
+
+
+@login_required()
+def user_response(request):
+    user = User.objects.get(id=request.user.id)
+    contacts = User.objects.all().order_by('id')
+
+    if request.method == 'POST':
+        form = ContactForm(request.POST)
+        if form.is_valid():
+            subject = "Website Inquiry"
+            body = {
+                'first_name': form.cleaned_data['first_name'],
+                'last_name': form.cleaned_data['last_name'],
+                'email_address': form.cleaned_data['email_address'],
+                'message': form.cleaned_data['message'],
+            }
+            message = "\n".join(body.values())
+            info = form.save(commit=False)
+            info.user = request.user
+            info.save()
+            messages.success(request, "Message sent")
+            try:
+                send_mail(subject, message, 'admin@example.com', ['admin@example.com'])
+            except BadHeaderError:
+                return HttpResponse('Invalid header found.')
+            return redirect("user")
+    form = ContactForm()
+    return render(request, "home/user.html", {'user': user,'contacts': contacts, 'form': form,})
+
+
+@login_required()
+def chat(request, pk):
+    # current user
+    user_info = User.objects.get(id=request.user.id)
+    # contact
+    contact = User.objects.get(id=pk)
+    # all messages from the current user
+    message_list = Message.objects.filter(user=request.user).order_by('-received_date')[:30]
+    # all messages from the contact
+    response_list = Message.objects.filter(user=pk).order_by('-received_date')[:30]
+    # messages show list
+    ret_list = message_list.union(response_list).order_by('received_date')
+
+    if request.method == 'POST':
+        form = MessageForm(request.POST)
+        if form.is_valid():
+            info = form.save(commit=False)
+            info.user = request.user
+            info.save()
+            return HttpResponseRedirect(reverse('chat', args=(pk,)))
+
+    form = MessageForm()
+    return render(request, "home/chat.html", {'user_info': user_info, 'contact': contact, 'rets': ret_list, 'form': form,})
