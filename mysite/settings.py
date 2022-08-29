@@ -41,6 +41,7 @@ CORS_ORIGIN_WHITELIST = [
 INSTALLED_APPS = [
     'myapp.apps.MyappConfig',
     'home.apps.HomeConfig',
+    'chat.apps.ChatConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -64,6 +65,8 @@ AUTHENTICATION_BACKENDS = (
     'django.contrib.auth.backends.ModelBackend',
     'allauth.account.auth_backends.AuthenticationBackend',
 )
+
+# AUTH_USER_MODEL = 'chatapp.AppAccount'
 
 SITE_ID = 3
 
@@ -107,7 +110,12 @@ ROOT_URLCONF = 'mysite.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR / 'templates', BASE_DIR / 'myapp/templates', BASE_DIR / 'home/templates'],
+        'DIRS': {
+            BASE_DIR / 'templates', 
+            BASE_DIR / 'myapp/templates', 
+            BASE_DIR / 'home/templates',
+            BASE_DIR / 'chat/templates',
+            },
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -125,9 +133,7 @@ WSGI_APPLICATION = 'mysite.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 
-# PostgreSQL DB hosted by AWS RDS Connect to DB locally (macos): psql
-# --host='database-1.ciwtxtgqt2xy.us-east-2.rds.amazonaws.com' --port='5432' --username='postgres' --password
-# --dbname='postgres'
+# PostgreSQL DB hosted by AWS RDS Connect to DB locally (macos): psql --host='database-1.ciwtxtgqt2xy.us-east-2.rds.amazonaws.com' --port='5432' --username='postgres' --password --dbname='postgres'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
@@ -138,6 +144,17 @@ DATABASES = {
         'PORT': '5432',
     }
 }
+
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql',
+#         'NAME': 'chatappdb',
+#         'USER': 'postgres',
+#         'PASSWORD': 'Yc1009917006',
+#         'HOST': 'database-1.ciwtxtgqt2xy.us-east-2.rds.amazonaws.com',
+#         'PORT': '5432',
+#     }
+# }
 
 
 # Password validation
@@ -170,6 +187,8 @@ USE_I18N = True
 
 USE_TZ = False
 
+DATA_UPLOAD_MAX_MEMORY_SIZE = 10485760 # 10mb = 10 * 1024 *1024
+
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.0/howto/static-files/
 
@@ -180,7 +199,12 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = [
     BASE_DIR / "myapp/static",
     BASE_DIR / "home/static",
+    BASE_DIR / "chat/static",
 ]
+
+MEDIA_URL = '/media/'
+
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field

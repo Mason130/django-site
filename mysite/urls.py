@@ -16,23 +16,29 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import include, path
 from django.contrib.auth import views as auth_views
+from django.conf import settings
+from django.conf.urls.static import static
 from home import views
 from myapp import views as v
+from chat import views as vc
 from rest_framework import routers
 
 
 # register APIs
 router = routers.DefaultRouter()
-router.register(r'contacts', views.ContactView, 'contact')
-router.register(r'choices', v.ChoiceView, 'choice')
-router.register(r'questions', v.QuestionView, 'question')
+router.register(r'contacts', views.ContactView, 'contacts')
+router.register(r'choices', v.ChoiceView, 'choices')
+router.register(r'questions', v.QuestionView, 'questions')
 
 # urls
 urlpatterns = [
     path('', views.home_response, name='home'),
     path('myapp/', include('myapp.urls')),
     path('users/', views.user_response, name='user'),
+    path('users/change_password', views.change_password, name='change_password'),
+    path('users/edit_profile', vc.edit_account_view, name='edit_profile'),
     path('users/<int:pk>/', views.chat, name='chat'),
+    path('users/contact', views.contact_admin, name='contact'),
     path('hereis-the-admin-loggin-page9527-li/', admin.site.urls),
     path('hereis-the-api-page7054-li/', include(router.urls)),
     path('accounts/', include('allauth.urls')),
@@ -40,13 +46,9 @@ urlpatterns = [
     path('logout/', views.logout_request, name='logout'),
     path('register/', views.register_request, name='register'),
     path("password_reset/", views.reset_request, name="reset"),
-    path('password_reset/done/',
-         auth_views.PasswordResetDoneView.as_view(template_name='home/reset_done.html'),
-         name='password_reset_done'),
-    path('reset/<uidb64>/<token>/',
-         auth_views.PasswordResetConfirmView.as_view(template_name="home/reset_confirm.html"),
-         name='password_reset_confirm'),
-    path('reset/complete/',
-         auth_views.PasswordResetCompleteView.as_view(template_name='home/reset_complete.html'),
-         name='password_reset_complete'),
+    path('password_reset/done/', auth_views.PasswordResetDoneView.as_view(template_name='home/reset_done.html'), name='password_reset_done'),
+    path('reset/<uidb64>/<token>/', auth_views.PasswordResetConfirmView.as_view(template_name="home/reset_confirm.html"), name='password_reset_confirm'),
+    path('reset/complete/', auth_views.PasswordResetCompleteView.as_view(template_name='home/reset_complete.html'), name='password_reset_complete'),
 ]
+
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

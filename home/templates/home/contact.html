@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load crispy_forms_filters %}
+{% load crispy_forms_tags %}
+{% load static %}
+<title>Contact form</title>
+{% include 'home/head.html' %}
+
+<link href="{% static 'home/css/sidebars.css' %}" rel="stylesheet">
+<script src="{% static 'home/js/scrollbar.js' %}"></script>
+
+<body>
+
+{% include 'home/header.html' %}
+
+<main style="background-color: #F1F2E5; margin-top: 70px; margin-bottom: 40px;">   
+    <!-- Chat panel -->
+    <div class="flex-shrink-0 p-3 bg-dark" style="width: 800px; margin:0 auto; margin-top: 30px;" align="center">
+        <span class="fs-5 fw-bold text-info">Contact admin</span>
+        <hr class="bg-light"> 
+        <div class="text-light fs-6 scrollarea" style="height: 400px; width: 660px; overflow-y: auto;" align="left">
+            <h4 class="fs-5">Have questions? Leave me a message, and I will reply you ASAP.</h4>
+            <form method="post">
+            {% csrf_token %}
+            {{form.as_p}}
+            <button class="btn btn-danger" type="submit">Submit</button>
+            </form>
+        </div>
+        <hr class="bg-light">
+    </div>
+</main>
+
+{% include 'home/footer.html' %}
+
+</body>
+</html>

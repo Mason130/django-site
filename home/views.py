@@ -1,6 +1,3 @@
-from django.contrib.auth.forms import AuthenticationForm, PasswordResetForm
-from django.contrib.auth.models import User
-from django.contrib.auth.tokens import default_token_generator
 from django.core.mail import send_mail, BadHeaderError
 from django.db.models import Q
 from django.http import HttpResponse, HttpResponseRedirect
@@ -8,15 +5,19 @@ from django.shortcuts import render, redirect
 from django.template.loader import render_to_string
 from django.utils.encoding import force_bytes
 from django.utils.http import urlsafe_base64_encode
-from django.contrib.auth.mixins import LoginRequiredMixin
-from django.contrib.auth import login, authenticate, logout
 from django.contrib import messages
+from django.contrib.auth import login, authenticate, logout, update_session_auth_hash
+from django.contrib.auth.models import User
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.forms import AuthenticationForm, PasswordResetForm, PasswordChangeForm
+from django.contrib.auth.tokens import default_token_generator
+from django.contrib.auth.decorators import login_required
 from django.urls import reverse
 from rest_framework import viewsets
 from .forms import NewUserForm, ContactForm, MessageForm
 from .serializers import ContactSerializer
 from .models import Contact, Message
-from django.contrib.auth.decorators import login_required
+from chat.models import ProfileAvatar
 
 
 class ContactView(LoginRequiredMixin, viewsets.ModelViewSet):
@@ -35,6 +36,9 @@ def register_request(request):
             user = form.save()
             login(request, user, backend='django.contrib.auth.backends.ModelBackend')
             messages.success(request, "Registration successful.")
+            # assign a default avatar for new user
+            avatar = ProfileAvatar(related_user=user)
+            avatar.save()
             return redirect("login")
         messages.error(request, "Unsuccessful registration. Invalid information.")
     form = NewUserForm()
@@ -101,6 +105,14 @@ def reset_request(request):
 def user_response(request):
     user = User.objects.get(id=request.user.id)
     contacts = User.objects.all().order_by('id')
+    avatar = None
+    # this exception is used to set a default avatar for third-party login like Google, GitHub, and etc.
+    try:  
+        avatar = ProfileAvatar.objects.get(related_user=request.user)
+    except ProfileAvatar.DoesNotExist:
+        new_avatar = ProfileAvatar(related_user=user)
+        new_avatar.save()
+    avatar = ProfileAvatar.objects.get(related_user=request.user)
 
     if request.method == 'POST':
         form = ContactForm(request.POST)
@@ -123,9 +135,25 @@ def user_response(request):
                 return HttpResponse('Invalid header found.')
             return redirect("user")
     form = ContactForm()
-    return render(request, "home/user.html", {'user': user,'contacts': contacts, 'form': form,})
+    return render(request, "home/user.html", {'user': user, 'contacts': contacts, 'avatar': avatar, 'form': form,})
 
 
+@login_required()
+def change_password(request):
+    if request.method == 'POST':
+        form = PasswordChangeForm(request.user, request.POST)
+        if form.is_valid():
+            user = form.save()
+            update_session_auth_hash(request, user)  # Important!
+            messages.success(request, 'Your password was successfully updated!')
+            return redirect('change_password')
+        else:
+            messages.error(request, 'Please correct the error below.')
+    else:
+        form = PasswordChangeForm(request.user)
+    return render(request, 'home/change.html', {'form': form})
+
+    
 @login_required()
 def chat(request, pk):
     # current user
@@ -149,3 +177,31 @@ def chat(request, pk):
 
     form = MessageForm()
     return render(request, "home/chat.html", {'user_info': user_info, 'contact': contact, 'rets': ret_list, 'form': form,})
+
+
+@login_required()
+def contact_admin(request):
+
+    if request.method == 'POST':
+        form = ContactForm(request.POST)
+        if form.is_valid():
+            subject = "Website Inquiry"
+            body = {
+                'first_name': form.cleaned_data['first_name'],
+                'last_name': form.cleaned_data['last_name'],
+                'email_address': form.cleaned_data['email_address'],
+                'message': form.cleaned_data['message'],
+            }
+            message = "\n".join(body.values())
+            info = form.save(commit=False)
+            info.user = request.user
+            info.save()
+            messages.success(request, "Message sent")
+            try:
+                send_mail(subject, message, 'admin@example.com', ['admin@example.com'])
+            except BadHeaderError:
+                return HttpResponse('Invalid header found.')
+            return redirect("contact")
+    
+    form = ContactForm()
+    return render(request, "home/contact.html", {'form': form,})

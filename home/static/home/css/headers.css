@@ -21,4 +21,9 @@ body {
 
 .navbar {
     margin-top: -16px;
+    position: fixed;
+    width: 100%;
+    z-index: 10;
+    max-width: 100%;
+    background-color: black;
 }

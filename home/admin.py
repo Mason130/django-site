@@ -12,7 +12,7 @@ class ContactAdmin(admin.ModelAdmin):
         (None,               {'fields': ['message']}),
         (None,               {'fields': ['received_date']}),
     ]
-    list_display = ('user', 'first_name', 'last_name', 'email_address', 'message','received_date')
+    list_display = ('user', 'first_name', 'last_name', 'email_address', 'message', 'received_date')
 
 
 admin.site.register(Contact, ContactAdmin)

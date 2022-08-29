@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load crispy_forms_filters %}
+{% load crispy_forms_tags %}
+{% load static %}
+<title>Userpage - Chatting</title>
+{% include 'home/head.html' %}
+
+<link href="{% static 'home/css/sidebars.css' %}" rel="stylesheet">
+<script src="{% static 'home/js/scrollbar.js' %}"></script>
+<style type="text/css">
+	.image-container{
+		max-width: 250px;
+		height: auto;
+		position: relative;
+	}
+	.field-heading{
+		color: #737373;
+	}
+	#id_confirm{
+		color: green;
+	}
+	#id_confirm:hover {
+		opacity: 0.3;
+	}
+	#id_cancel:hover {
+		opacity: 0.3;
+	}
+	#id_cancel{
+		color: red;
+	}
+	.material-icons{
+		font-size: 30px;
+	}
+	.material-icons:hover{
+		cursor: pointer;
+	}
+</style>
+
+<body>
+
+{% include 'home/header.html' %}
+
+<main style="background-color: #F1F2E5; margin-top: 50px; margin-bottom: 40px;">   
+    <div class="container-fluid">
+        <div class="row justify-content-center">
+            <div class="card profile-card" style="width: 500px; margin-top: 20px;">
+                <div class="card-body">
+                    <div class="d-flex flex-column justify-content-center p-4">
+                        <span class="fs-5 fw-bold text-danger" style="text-align: center;">Edit profile</span>
+                        <hr class="bg-dark"> 
+                        <form class="form-signin" method="post" enctype="multipart/form-data" style="margin-top: -20px;">
+                            {% csrf_token %}
+                            <input class="d-none" type="file" name="profile_image" id="id_profile_image" onchange="readURL(this)">
+                            <h6 class="mt-4 field-heading text-dark fw-bold">Email</h6>
+                            <input type="email" name="email" id="id_input_email" class="form-control" placeholder="Email address" required autofocus value={{form.initial.email}}>
+                            <h6 class="mt-4 field-heading text-dark fw-bold">Username</h6>
+                            <input type="text" name="username" id="id_input_username" class="form-control" placeholder="Username" required
+                            value="{{form.initial.username}}">
+                            <h6 class="mt-4 field-heading text-dark fw-bold">First name</h6>
+                            <input type="text" name="first_name" id="id_input_first_name" class="form-control" placeholder="First name" required
+                            value="{{form.initial.first_name}}">
+                            <h6 class="mt-4 field-heading text-dark fw-bold">Last name</h6>
+                            <input type="text" name="last_name" id="id_input_last_name" class="form-control" placeholder="Last name" required
+                            value="{{form.initial.last_name}}">
+                            {% for field in form %}
+                            <p>
+                            {% for error in field.errors %}
+                            <p style="color: red">{{ error }}</p>
+                            {% endfor %}
+                            </p>
+                            {% endfor %}
+                            {% if form.non_field_errors %}
+                            <div style="color: red">
+                            <p>{{form.non_field_errors}}</p>
+                            </div>
+                            {% endif %}
+                            <div class="d-flex flex-column mt-4">
+                                <button class="mt-4 btn btn-primary flex-grow-1" type="submit">Save changes</button>
+                            </div>  
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+{% include 'home/footer.html' %}
+
+</body>
+</html>

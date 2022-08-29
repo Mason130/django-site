@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load crispy_forms_filters %}
+{% load crispy_forms_tags %}
+{% load static %}
+<title>Contact form</title>
+{% include 'home/head.html' %}
+
+<link href="{% static 'home/css/sidebars.css' %}" rel="stylesheet">
+<script src="{% static 'home/js/scrollbar.js' %}"></script>
+
+<body>
+
+{% include 'home/header.html' %}
+
+<main style="background-color: #F1F2E5; margin-top: 50px; margin-bottom: 40px;">  
+    <!-- Message display -->
+    {% if messages %}
+        <ul class="messages">
+            {% for message in messages %}
+                <a{% if message.tags %} class="{{ message.tags }}"{% endif %} style="color: #002EA6">{{ message }}</a>
+            {% endfor %}
+        </ul>
+    {% endif %}
+
+    <!-- Chat panel -->
+    <div class="container-fluid">
+        <div class="row justify-content-center">
+            <div class="card profile-card" style="width: 500px; margin-top: 20px;">
+                <div class="card-body">
+                    <div class="d-flex flex-column justify-content-center p-4">
+                        <span class="fs-5 fw-bold text-danger" style="text-align: center;">Change password</span>
+                        <hr class="bg-dark"> 
+                        <h4 class="fs-5">Please enter your old and new passwords</h4>
+                        <form method="POST">
+                            {% csrf_token %}
+                            {{ form|crispy}}
+                            <div class="d-flex flex-column mt-4">
+                                <button class="mt-4 btn btn-primary flex-grow-1" type="submit">Save changes</button>
+                            </div> 
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+{% include 'home/footer.html' %}
+
+</body>
+</html>

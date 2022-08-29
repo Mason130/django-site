@@ -3,6 +3,7 @@
 {% load crispy_forms_filters %}
 {% load crispy_forms_tags %}
 {% load static %}
+<title>Homepage - Welcome</title>
 {% include 'home/head.html' %}
 
 <body>
@@ -19,7 +20,7 @@
 {#{% endif %}#}
 
 <main>
-    <div id="myCarousel" class="carousel slide" data-bs-ride="carousel">
+    <div id="myCarousel" class="carousel slide" data-bs-ride="carousel" style="margin-top: 50px;">
         <div class="carousel-indicators">
             <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
             <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
@@ -32,9 +33,9 @@
                 <img class="center-block" src="{% static 'home/images/1.png' %}" alt="1">
                 <div class="container">
                     <div class="carousel-caption text-start">
-                        <h1>Be a user</h1>
-                        <p>Not many functionalities so far though</p>
-                        <p><a class="btn btn-lg btn-primary" href="/register">Sign up</a></p>
+                        <h1>About Django</h1>
+                        <p>Ridiculously fast, Reassuringly secure, Exceedingly scalable</p>
+                        <p><a class="btn btn-lg btn-primary" href="https://www.djangoproject.com">Learn more</a></p>
                     </div>
                 </div>
             </div>
@@ -43,9 +44,9 @@
                 <img class="center-block" src="{% static 'home/images/2.png' %}" alt="2">
                 <div class="container">
                     <div class="carousel-caption">
-                        <h1>Powerful Django</h1>
-                        <p>Ridiculously fast, Reassuringly secure, Exceedingly scalable</p>
-                        <p><a class="btn btn-lg btn-primary" href="https://www.djangoproject.com">Learn more</a></p>
+                        <h1>Registration</h1>
+                        <p>You can sign up here</p>
+                        <p><a class="btn btn-lg btn-primary" href="/register">Sign up</a></p>
                     </div>
                 </div>
             </div>
@@ -54,8 +55,8 @@
                 <img class="center-block" src="{% static 'home/images/3.png' %}" alt="3">
                 <div class="container">
                     <div class="carousel-caption text-end">
-                        <h1>Considering a cat</h1>
-                        <p>Why not an adorable british shorthair</p>
+                        <h1>Wiki</h1>
+                        <p>Introduction to british shorthair</p>
                         <p><a class="btn btn-lg btn-primary" href="https://en.wikipedia.org/wiki/British_Shorthair">Wiki</a></p>
                     </div>
                 </div>
@@ -65,9 +66,9 @@
                 <img class="center-block" src="{% static 'home/images/4.png' %}" alt="4">
                 <div class="container">
                     <div class="carousel-caption text-start">
-                        <h1>Nothing yet</h1>
-                        <p>Cause author is lazy</p>
-                        <p><a class="btn btn-lg btn-primary" href="#">Lol</a></p>
+                        <h1>Title</h1>
+                        <p>......</p>
+                        <p><a class="btn btn-lg btn-primary" href="#">Null</a></p>
                     </div>
                 </div>
             </div>
@@ -90,7 +91,7 @@
         {% comment %}
         <div class="row">
             <div class="col-lg-4">
-                <img class="bd-placeholder-img rounded-circle" src="{% static 'home/images/author.png' %}" alt="c1">
+                <img class="bd-placeholder-img rounded-circle" src="{% static 'home/images/default.png' %}" alt="c1">
                 <h2 class="fw-normal">Author</h2>
                 <p>......</p>
                 <p><a class="btn btn-secondary" href="#">View bio &raquo;</a></p>
