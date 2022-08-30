@@ -6,7 +6,6 @@ from django.core.files.storage import FileSystemStorage
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 import os
-import cv2
 import json
 import base64
 import requests
