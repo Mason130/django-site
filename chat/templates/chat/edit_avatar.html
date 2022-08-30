@@ -42,6 +42,15 @@
 {% include 'home/header.html' %}
 
 <main style="background-color: #F1F2E5; margin-top: 50px; margin-bottom: 40px;">   
+	<!-- Message display -->
+    {% if messages %}
+        <ul class="messages">
+            {% for message in messages %}
+                <a{% if message.tags %} class="{{ message.tags }}"{% endif %} style="color: #002EA6">{{ message }}</a>
+            {% endfor %}
+        </ul>
+    {% endif %}
+
     <div class="container-fluid">
         <div class="row justify-content-center">
             <div class="card profile-card" style="width: 500px; margin-top: 20px;">
@@ -49,6 +58,7 @@
                     <div class="d-flex flex-column justify-content-center p-4" style="margin-top: -20px;">
                         <span class="fs-5 fw-bold text-danger" style="text-align: center;">Edit avatar</span>
                         <hr class="bg-dark"> 
+						<h4 class="fs-5 text-info">Note: the maximum image size is 10MB</h4>
                         <form class="form-signin" method="POST" enctype="multipart/form-data">
                             {% csrf_token %}
                             {{ form|crispy}}

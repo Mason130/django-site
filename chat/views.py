@@ -123,6 +123,7 @@ def edit_account_view(request):
         form = AccountUpdateForm(request.POST, instance=request.user)
         if form.is_valid():
             form.save()
+            messages.success(request, 'Your profile was successfully updated!')
             return redirect("user")
         else:
             form = AccountUpdateForm(request.POST, instance=request.user,
@@ -159,9 +160,10 @@ def edit_avatar_view(request):
         form = AvatarUpdateForm(request.POST, request.FILES, instance=profile_avatar) 
         if form.is_valid():
             form.save()
+            messages.success(request, 'Your avatar was successfully updated!')
             return redirect("user")
         else:
-            print(form.errors)
+            messages.error(request, "Invalid form.")
     else:
         form = AvatarUpdateForm(instance=profile_avatar)
     return render(request, 'chat/edit_avatar.html', {'form': form,})
