@@ -103,39 +103,15 @@ def reset_request(request):
 
 @login_required()
 def user_response(request):
-    user = User.objects.get(id=request.user.id)
+    context={}
+    user = request.user
     contacts = User.objects.all().order_by('id')
-    avatar = None
-    # this exception is used to set a default avatar for third-party login like Google, GitHub, and etc.
-    try:  
-        avatar = ProfileAvatar.objects.get(related_user=request.user)
-    except ProfileAvatar.DoesNotExist:
-        new_avatar = ProfileAvatar(related_user=user)
-        new_avatar.save()
-    avatar = ProfileAvatar.objects.get(related_user=request.user)
-
-    if request.method == 'POST':
-        form = ContactForm(request.POST)
-        if form.is_valid():
-            subject = "Website Inquiry"
-            body = {
-                'first_name': form.cleaned_data['first_name'],
-                'last_name': form.cleaned_data['last_name'],
-                'email_address': form.cleaned_data['email_address'],
-                'message': form.cleaned_data['message'],
-            }
-            message = "\n".join(body.values())
-            info = form.save(commit=False)
-            info.user = request.user
-            info.save()
-            messages.success(request, "Message sent")
-            try:
-                send_mail(subject, message, 'admin@example.com', ['admin@example.com'])
-            except BadHeaderError:
-                return HttpResponse('Invalid header found.')
-            return redirect("user")
-    form = ContactForm()
-    return render(request, "home/user.html", {'user': user, 'contacts': contacts, 'avatar': avatar, 'form': form,})
+    avatar = ProfileAvatar.objects.get_or_create(related_user=user)
+    avatar = ProfileAvatar.objects.get(related_user=user)
+    context['user'] = user
+    context['contacts'] = contacts
+    context['avatar'] = avatar
+    return render(request, "home/user.html", context)
 
 
 @login_required()

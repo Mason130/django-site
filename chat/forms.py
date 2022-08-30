@@ -1,5 +1,6 @@
 from django import forms
 from django.contrib.auth.models import User
+from .models import ProfileAvatar
 
 
 class AccountUpdateForm(forms.ModelForm):
@@ -24,7 +25,6 @@ class AccountUpdateForm(forms.ModelForm):
             return username
         raise forms.ValidationError('Username "%s" is already in use.' % username)
 
-
     def save(self, commit=True):
         account = super(AccountUpdateForm, self).save(commit=False)
         account.username = self.cleaned_data['username']
@@ -35,3 +35,9 @@ class AccountUpdateForm(forms.ModelForm):
         if commit:
             account.save()
         return account
+
+
+class AvatarUpdateForm(forms.ModelForm):
+    class Meta:
+        model = ProfileAvatar
+        fields = ('avatar',)

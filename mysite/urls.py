@@ -37,6 +37,7 @@ urlpatterns = [
     path('users/', views.user_response, name='user'),
     path('users/change_password', views.change_password, name='change_password'),
     path('users/edit_profile', vc.edit_account_view, name='edit_profile'),
+    path('users/edit_avatar', vc.edit_avatar_view, name='edit_avatar'),
     path('users/<int:pk>/', views.chat, name='chat'),
     path('users/contact', views.contact_admin, name='contact'),
     path('hereis-the-admin-loggin-page9527-li/', admin.site.urls),

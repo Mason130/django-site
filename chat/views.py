@@ -14,7 +14,9 @@ from django.core import files
 # from friend.utils import get_friend_request_or_false
 # from friend.friend_request_status import FriendRequestStatus
 from .models import FriendList, FriendRequest
-from .forms import AccountUpdateForm
+from .forms import AccountUpdateForm, AvatarUpdateForm
+from chat.models import ProfileAvatar
+from django.contrib import messages
 
 TEMP_PROFILE_IMAGE_NAME = "temp_profile_image.png"
 
@@ -119,7 +121,7 @@ def edit_account_view(request):
     context = {}
     account = User.objects.get(id=request.user.id)
     if request.POST:
-        form = AccountUpdateForm(request.POST, request.FILES, instance=request.user)
+        form = AccountUpdateForm(request.POST, instance=request.user)
         if form.is_valid():
             form.save()
             return redirect("user")
@@ -129,26 +131,41 @@ def edit_account_view(request):
                                          "id": account.pk,
                                          "email": account.email,
                                          "username": account.username,
-                                         # "profile_image": account.profile_image,
                                          "first_name": account.first_name,
                                          "last_name": account.last_name,
                                      }
                                      )
             context['form'] = form
+
     else:
         form = AccountUpdateForm(
             initial={
                 "id": account.pk,
                 "email": account.email,
                 "username": account.username,
-                # "profile_image": account.profile_image,
                 "first_name": account.first_name,
                 "last_name": account.last_name,
             }
         )
         context['form'] = form
+
     context['DATA_UPLOAD_MAX_MEMORY_SIZE'] = settings.DATA_UPLOAD_MAX_MEMORY_SIZE
     return render(request, 'chat/edit_profile.html', context)
+
+
+@login_required()
+def edit_avatar_view(request):
+    profile_avatar = ProfileAvatar.objects.get(related_user=request.user)
+    if request.method == 'POST':
+        form = AvatarUpdateForm(request.POST, request.FILES, instance=profile_avatar) 
+        if form.is_valid():
+            form.save()
+            return redirect("user")
+        else:
+            print(form.errors)
+    else:
+        form = AvatarUpdateForm(instance=profile_avatar)
+    return render(request, 'chat/edit_avatar.html', {'form': form,})
 
 
 def save_temp_profile_image_from_base64String(imageString, user):
