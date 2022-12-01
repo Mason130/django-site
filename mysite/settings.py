@@ -39,6 +39,7 @@ CORS_ORIGIN_WHITELIST = [
 # Application definition
 
 INSTALLED_APPS = [
+    'pillrecognition.apps.PillrecognitionConfig',
     'myapp.apps.MyappConfig',
     'home.apps.HomeConfig',
     'chat.apps.ChatConfig',
@@ -115,6 +116,7 @@ TEMPLATES = [
             BASE_DIR / 'myapp/templates', 
             BASE_DIR / 'home/templates',
             BASE_DIR / 'chat/templates',
+            BASE_DIR / 'pillrecognition/templates',
             },
         'APP_DIRS': True,
         'OPTIONS': {
@@ -187,24 +189,23 @@ USE_I18N = True
 
 USE_TZ = False
 
-DATA_UPLOAD_MAX_MEMORY_SIZE = 10485760 # 10mb = 10 * 1024 *1024
+DATA_UPLOAD_MAX_MEMORY_SIZE = 10485760  # 10mb = 10 * 1024 *1024
 FILE_UPLOAD_MAX_MEMORY_SIZE = 10485760
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.0/howto/static-files/
 
-STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
-
 STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
 
 STATICFILES_DIRS = [
     BASE_DIR / "myapp/static",
     BASE_DIR / "home/static",
     BASE_DIR / "chat/static",
+    BASE_DIR / "pillrecognition/static",
 ]
 
 MEDIA_URL = '/media/'
-
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
 
 # Default primary key field type

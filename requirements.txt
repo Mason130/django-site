@@ -42,3 +42,4 @@ txaio==22.2.1
 typing_extensions==4.3.0
 urllib3==1.26.11
 zope.interface==5.4.0
+torch~=1.13.0
