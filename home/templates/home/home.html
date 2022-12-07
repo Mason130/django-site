@@ -25,14 +25,25 @@
             <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
             <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
             <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="2" aria-label="Slide 3"></button>
-            <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="3" aria-label="Slide 4"></button>
         </div>
 
         <div class="carousel-inner bg-dark" align="center">
-            <div class="carousel-item active"> 
+
+            <div class="carousel-item active">
+                <img class="center-block" src="{% static 'home/images/0.png' %}" alt="0">
+                <div class="container">
+                    <div class="carousel-caption">
+                        <h1>Pill Identification</h1>
+                        <p>UMaine COS473 (Computer vision) project</p>
+                        <p><a class="btn btn-lg btn-primary" href="/pillrecognition">Start</a></p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="carousel-item">
                 <img class="center-block" src="{% static 'home/images/1.png' %}" alt="1">
                 <div class="container">
-                    <div class="carousel-caption text-start">
+                    <div class="carousel-caption">
                         <h1>About Django</h1>
                         <p>Ridiculously fast, Reassuringly secure, Exceedingly scalable</p>
                         <p><a class="btn btn-lg btn-primary" href="https://www.djangoproject.com">Learn more</a></p>
@@ -45,33 +56,12 @@
                 <div class="container">
                     <div class="carousel-caption">
                         <h1>Registration</h1>
-                        <p>You can sign up here</p>
+                        <p>You can sign up here</p> <!-- text-end -->
                         <p><a class="btn btn-lg btn-primary" href="/register">Sign up</a></p>
                     </div>
                 </div>
             </div>
 
-            <div class="carousel-item">
-                <img class="center-block" src="{% static 'home/images/3.png' %}" alt="3">
-                <div class="container">
-                    <div class="carousel-caption text-end">
-                        <h1>Wiki</h1>
-                        <p>Introduction to british shorthair</p>
-                        <p><a class="btn btn-lg btn-primary" href="https://en.wikipedia.org/wiki/British_Shorthair">Wiki</a></p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="carousel-item">
-                <img class="center-block" src="{% static 'home/images/4.png' %}" alt="4">
-                <div class="container">
-                    <div class="carousel-caption text-start">
-                        <h1>Title</h1>
-                        <p>......</p>
-                        <p><a class="btn btn-lg btn-primary" href="#">Null</a></p>
-                    </div>
-                </div>
-            </div>
         </div>
 
         <button class="carousel-control-prev" type="button" data-bs-target="#myCarousel" data-bs-slide="prev">
@@ -113,6 +103,7 @@
             {% endcomment %}
 
         <!-- START THE FEATURETTES -->
+        {% comment %}
         <hr class="featurette-divider">
         <div class="row featurette">
             <div class="col-md-7">
@@ -147,6 +138,7 @@
         </div>
         <hr class="featurette-divider">
         <!-- /END THE FEATURETTES -->
+        {% endcomment %}
     </div><!-- /.container -->
 </main>
 

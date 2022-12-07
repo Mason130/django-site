@@ -10,3 +10,7 @@ __pycache__
 
 # file that contains sensitive information
 db_info.txt
+
+# training dataset
+media/cnn/C3PI_dataset/train_it
+media/cnn/C3PI_dataset/validate_it

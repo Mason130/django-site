@@ -157,7 +157,7 @@ def edit_account_view(request):
 def edit_avatar_view(request):
     profile_avatar = ProfileAvatar.objects.get(related_user=request.user)
     if request.method == 'POST':
-        form = AvatarUpdateForm(request.POST, request.FILES, instance=profile_avatar) 
+        form = AvatarUpdateForm(request.POST, request.FILES, instance=profile_avatar)
         if form.is_valid():
             form.save()
             messages.success(request, 'Your avatar was successfully updated!')
@@ -166,7 +166,8 @@ def edit_avatar_view(request):
             messages.error(request, "Invalid form.")
     else:
         form = AvatarUpdateForm(instance=profile_avatar)
-    return render(request, 'chat/edit_avatar.html', {'form': form,})
+        # form = AvatarUpdateForm()
+    return render(request, 'chat/edit_avatar.html', {'form': form, })
 
 
 def save_temp_profile_image_from_base64String(imageString, user):

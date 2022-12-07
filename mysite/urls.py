@@ -21,7 +21,6 @@ from django.conf.urls.static import static
 from home import views
 from myapp import views as myapp_views
 from chat import views as chat_views
-from pillrecognition import views as pillrecognition_views
 from rest_framework import routers
 
 
@@ -37,6 +36,7 @@ urlpatterns = [
     path('hereis-the-api-page7054-li/', include(router.urls)),
     path('', views.home_response, name='home'),
     path('myapp/', include('myapp.urls')),
+    path('pillrecognition/', include('pillrecognition.urls')),
     path('users/', views.user_response, name='user'),
     path('users/<int:pk>/', views.chat, name='chat'),
     path('users/contact', views.contact_admin, name='contact'),

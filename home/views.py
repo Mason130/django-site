@@ -103,7 +103,7 @@ def reset_request(request):
 
 @login_required()
 def user_response(request):
-    context={}
+    context = {}
     user = request.user
     contacts = User.objects.all().order_by('id')
     avatar = ProfileAvatar.objects.get_or_create(related_user=user)
@@ -129,7 +129,7 @@ def change_password(request):
         form = PasswordChangeForm(request.user)
     return render(request, 'home/change.html', {'form': form})
 
-    
+
 @login_required()
 def chat(request, pk):
     # current user
@@ -152,12 +152,12 @@ def chat(request, pk):
             return HttpResponseRedirect(reverse('chat', args=(pk,)))
 
     form = MessageForm()
-    return render(request, "home/chat.html", {'user_info': user_info, 'contact': contact, 'rets': ret_list, 'form': form,})
+    return render(request, "home/chat.html",
+                  {'user_info': user_info, 'contact': contact, 'rets': ret_list, 'form': form, })
 
 
 @login_required()
 def contact_admin(request):
-
     if request.method == 'POST':
         form = ContactForm(request.POST)
         if form.is_valid():
@@ -178,6 +178,6 @@ def contact_admin(request):
             except BadHeaderError:
                 return HttpResponse('Invalid header found.')
             return redirect("contact")
-    
+
     form = ContactForm()
-    return render(request, "home/contact.html", {'form': form,})
+    return render(request, "home/contact.html", {'form': form, })
