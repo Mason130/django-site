@@ -12,5 +12,7 @@ __pycache__
 db_info.txt
 
 # training dataset
-media/cnn/C3PI_dataset/train_it
-media/cnn/C3PI_dataset/validate_it
+media/cnn/C3PI_dataset/
+media/cnn/requirements.txt
+media/cnn/pillidentifier.model/
+media/cnn/Log/

@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load crispy_forms_filters %}
+{% load crispy_forms_tags %}
+{% load static %}
+<title>Pill - Results</title>
+{% include 'home/head.html' %}
+
+<link href="{% static 'home/css/sidebars.css' %}" rel="stylesheet">
+<script src="{% static 'home/js/scrollbar.js' %}"></script>
+<style type="text/css">
+	.image-container{
+		max-width: 250px;
+		height: auto;
+		position: relative;
+	}
+	.field-heading{
+		color: #737373;
+	}
+	#id_confirm{
+		color: green;
+	}
+	#id_confirm:hover {
+		opacity: 0.3;
+	}
+	#id_cancel:hover {
+		opacity: 0.3;
+	}
+	#id_cancel{
+		color: red;
+	}
+	.material-icons{
+		font-size: 30px;
+	}
+	.material-icons:hover{
+		cursor: pointer;
+	}
+</style>
+
+<body>
+
+{% include 'home/header.html' %}
+
+<main style="background-color: #F1F2E5; margin-top: 50px; margin-bottom: 40px;">
+    <div class="container-fluid">
+        <div class="row justify-content-center">
+            <div class="card profile-card" style="width: 700px; margin-top: 20px;">
+                <div class="card-body">
+                    <div class="d-flex flex-column justify-content-center p-4" style="margin-top: -20px;">
+                        <span class="fs-5 fw-bold text-danger text-center">Identification result</span>
+                        <hr class="bg-dark">
+                        <img class="d-block justify-content-center" style="margin-left: auto; margin-right: auto;" src="../media/{{pill.pill_image}}" alt="pill" width="250" height="250">
+                        <hr class="bg-dark">
+                        <span class="fs-6 fw-bold text-secondary">Pill Name:
+                            <a class="fs-6 fw-bold text-dark" style="text-decoration: none">{{ information.pill_name }}</a>
+                        </span>
+                        <span class="fs-6 fw-bold text-secondary">Generic Name:
+                            <a class="fs-6 fw-bold text-dark" style="text-decoration: none">{{ information.generic_name }}</a>
+                        </span>
+                        <span class="fs-6 fw-bold text-secondary">NDC No.:
+                            <a class="fs-6 fw-bold text-dark" style="text-decoration: none">{{ information.ndc11 }}</a>
+                        </span>
+                        <span class="fs-6 fw-bold text-secondary">RXCUI No.:
+                            <a class="fs-6 fw-bold text-dark" style="text-decoration: none">{{ information.rxcui }}</a>
+                        </span>
+                        <span class="fs-6 fw-bold text-secondary">Database reference id:
+                            <a class="fs-6 fw-bold text-dark" style="text-decoration: none">{{ information.id }}</a>
+                        </span>
+                        <span class="fs-6 fw-bold text-secondary">Probability:
+                            <a class="fs-6 fw-bold text-dark" style="text-decoration: none">{{ probability }}%</a>
+                        </span>
+                        <a class="mt-4 btn btn-primary flex-grow-1" href="{% url 'pillrecognition:index' %}">New identification</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+{% include 'home/footer.html' %}
+
+</body>
+</html>
