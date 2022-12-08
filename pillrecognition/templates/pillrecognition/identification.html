@@ -58,7 +58,8 @@
                     <div class="d-flex flex-column justify-content-center p-4" style="margin-top: -20px;">
                         <span class="fs-5 fw-bold text-danger" style="text-align: center;">Upload pill image</span>
                         <hr class="bg-dark">
-						<h4 class="fs-5 text-primary">Note: the maximum size of uploaded image is 10MB</h4>
+						<h4 class="fs-6 text-primary">Note: the maximum size of uploaded image is 10MB</h4>
+                        <hr class="bg-dark">
                         <form class="form-signin" method="POST" enctype="multipart/form-data">
                             {% csrf_token %}
                             {{ form|crispy}}
