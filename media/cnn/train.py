@@ -18,7 +18,7 @@ from keras.preprocessing.image import ImageDataGenerator
 from keras.utils import img_to_array
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import LabelBinarizer
-from pillnet import PillNet
+from alexnet import AlexNet
 
 
 def set_keras_backend(backend):
@@ -133,7 +133,7 @@ def compile_train_model(data_augmentation):
 
     # Initialize the model.
     print("[INFO] compiling model...")
-    model = PillNet.build(width=IMAGE_DIMS[1],
+    model = AlexNet.build(width=IMAGE_DIMS[1],
                           height=IMAGE_DIMS[0],
                           depth=IMAGE_DIMS[2],
                           classes=len(lb.classes_))
