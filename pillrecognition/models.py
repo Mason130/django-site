@@ -1,5 +1,4 @@
 from django.db import models
-from .storage import OverwriteStorage
 
 
 class PillsInformation(models.Model):
@@ -15,5 +14,4 @@ class PillsInformation(models.Model):
 class UploadImage(models.Model):
     pill_image = models.ImageField(max_length=255, upload_to='uploaded_pill',
                                    default="uploaded_pill/default.png",
-                                   storage=OverwriteStorage(),
                                    null=True, blank=True)
