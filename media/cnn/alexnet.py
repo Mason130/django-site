@@ -69,15 +69,9 @@ class AlexNet:
         model.add(MaxPooling2D(pool_size=(2, 2)))
         model.add(Flatten())
         model.add(Dense(4096, activation='relu', kernel_constraint=maxnorm(3)))
-        # 1
-        # model.add(Dropout(0.2))
-        # model.add(Dense(2000, activation='relu', kernel_constraint=maxnorm(3)))
-        # model.add(Dropout(0.2))
-        # model.add(Dense(classes, activation='softmax'))
-        # 2
-        model.add(Dropout(0.5))
+        model.add(Dropout(0.2))
         model.add(Dense(2000, activation='relu', kernel_constraint=maxnorm(3)))
-        model.add(Dropout(0.5))
-        model.add(Dense(classes, activation='sigmoid'))
+        model.add(Dropout(0.2))
+        model.add(Dense(classes, activation='softmax'))
         model.summary()
         return model
