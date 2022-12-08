@@ -56,14 +56,14 @@
             <div class="card profile-card" style="width: 500px; margin-top: 20px;">
                 <div class="card-body">
                     <div class="d-flex flex-column justify-content-center p-4" style="margin-top: -20px;">
-                        <span class="fs-5 fw-bold text-danger" style="text-align: center;">Pill upload</span>
+                        <span class="fs-5 fw-bold text-danger" style="text-align: center;">Upload pill image</span>
                         <hr class="bg-dark">
-						<h4 class="fs-5 text-info">Note: the maximum image size is 10MB</h4>
+						<h4 class="fs-5 text-primary">Note: the maximum size of uploaded image is 10MB</h4>
                         <form class="form-signin" method="POST" enctype="multipart/form-data">
                             {% csrf_token %}
                             {{ form|crispy}}
                             <div class="d-flex flex-column mt-4">
-                                <button class="mt-4 btn btn-primary flex-grow-1" type="submit">Start identification</button>
+                                <button class="mt-4 btn btn-primary flex-grow-1" type="submit">Save</button>
                             </div>  
                         </form>
                     </div>
