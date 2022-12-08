@@ -4,6 +4,7 @@ import pickle
 import cv2
 import numpy as np
 import psycopg2
+import tensorflow as tf
 
 
 # Connect to database
@@ -17,8 +18,17 @@ cursor = conn.cursor()
 # Create your views here.
 MODEL_PATH = 'pillidentifier.model'
 model = load_model(MODEL_PATH)
+tf.keras.utils.plot_model(
+    model,
+    to_file='model.png',
+    show_shapes=True,
+    show_dtype=False,
+    show_layer_names=False,
+    show_layer_activations=True,
+    dpi=100
+)
 lb = pickle.loads(open('lb.pickle', "rb").read())
-img_path = "C3PI_dataset/train_it/6/1066.jpg"
+img_path = "C3PI_dataset/train/6/1066.jpg"
 img = cv2.imread(img_path)
 img = cv2.resize(img, (96, 96))
 img = img.astype("float") / 255.0

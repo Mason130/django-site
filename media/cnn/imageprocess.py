@@ -21,7 +21,7 @@ def resize_crop_consumer_image(img_path):
 
 
 def imageprocess():
-    root_dir = os.path.abspath("C3PI_dataset/train_it/")
+    root_dir = os.path.abspath("C3PI_dataset/train/")
     print(root_dir)
     # exclude macOS miscs
     os.system("find . -name "".DS_Store"" -delete")

@@ -1,6 +1,6 @@
 """
 Train:
- > python train.py --dataset C3PI_dataset/train_it --model pillidentifier.model --labelbin lb.pickle
+ > python train.py --dataset C3PI_dataset/train --model pillidentifier.model --labelbin lb.pickle
 
 Check training process in Tensorboard:
  > tensorboard --logdir=Log/ --port=8101
@@ -151,7 +151,7 @@ def compile_train_model(data_augmentation):
                   optimizer=opt,
                   metrics=["accuracy"])
 
-    tensorboard = TensorBoard(log_dir='Log/', histogram_freq=0,
+    tensorboard = TensorBoard(log_dir='log/', histogram_freq=0,
                               write_graph=True, write_images=False)
 
     if not data_augmentation:
