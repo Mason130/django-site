@@ -15,7 +15,6 @@ conn = psycopg2.connect(database="postgres",
                         port="5432")
 cursor = conn.cursor()
 
-# Create your views here.
 MODEL_PATH = 'pillidentifier.model'
 model = load_model(MODEL_PATH)
 tf.keras.utils.plot_model(
@@ -27,6 +26,7 @@ tf.keras.utils.plot_model(
     show_layer_activations=True,
     dpi=100
 )
+
 lb = pickle.loads(open('lb.pickle', "rb").read())
 img_path = "C3PI_dataset/train/6/1066.jpg"
 img = cv2.imread(img_path)
@@ -52,4 +52,3 @@ print(f"Printing new label: {new_label}")
 # Prediction probability.
 prob = proba[idx] * 100
 print("Probability: {:.2f}%".format(prob))
-# data["probability"] = prob

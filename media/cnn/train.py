@@ -1,16 +1,11 @@
 """
 Train:
  > python train.py --dataset C3PI_dataset/train --model pillidentifier.model --labelbin lb.pickle
-
-Check training process in Tensorboard:
- > tensorboard --logdir=Log/ --port=8101
 """
-
 import argparse
 import os
 import pickle
 import random
-
 import cv2
 import matplotlib.pyplot as plt
 import numpy as np
@@ -23,7 +18,6 @@ from keras.preprocessing.image import ImageDataGenerator
 from keras.utils import img_to_array
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import LabelBinarizer
-
 from pillnet import PillNet
 
 

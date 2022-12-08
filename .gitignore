@@ -15,4 +15,4 @@ db_info.txt
 media/cnn/C3PI_dataset/
 media/cnn/requirements.txt
 media/cnn/pillidentifier.model/
-media/cnn/Log/
+media/cnn/log/
