@@ -125,7 +125,8 @@ def compile_train_model(data_augmentation):
       otherwise you should lower these values so you can allocate enough 
       resources for the model to be trained (reducing batch size, for example).
     """
-    EPOCHS = 100
+    EPOCHS = 150
+    # EPOCHS = 150
     INIT_LR = 2e-5
     BS = 32
     # BS = 32

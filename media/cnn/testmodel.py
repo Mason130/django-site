@@ -3,8 +3,8 @@ from keras.utils import img_to_array
 import pickle
 import cv2
 import numpy as np
-import psycopg2
 import tensorflow as tf
+import psycopg2
 
 
 # Connect to database
