@@ -1,6 +1,6 @@
 """
 Train:
- > python train.py --dataset C3PI_dataset/train --model pillidentifier.model --labelbin lb.pickle
+    python train.py --dataset C3PI_dataset/train --model pillidentifier.model --labelbin lb.pickle
 """
 import argparse
 import os

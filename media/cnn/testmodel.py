@@ -28,7 +28,7 @@ tf.keras.utils.plot_model(
 )
 
 lb = pickle.loads(open('lb.pickle', "rb").read())
-img_path = "C3PI_dataset/train/6/1066.jpg"
+img_path = "C3PI_dataset/train/29/2731.jpg"
 img = cv2.imread(img_path)
 img = cv2.resize(img, (96, 96))
 img = img.astype("float") / 255.0
