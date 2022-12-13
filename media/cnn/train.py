@@ -125,9 +125,10 @@ def compile_train_model(data_augmentation):
       otherwise you should lower these values so you can allocate enough 
       resources for the model to be trained (reducing batch size, for example).
     """
-    EPOCHS = 150
+    EPOCHS = 100
     INIT_LR = 2e-5
-    BS = 32
+    BS = 15
+    # BS = 32
     IMAGE_DIMS = (96, 96, 3)
     train_x, test_x, train_y, test_y, lb = load_dataset(IMAGE_DIMS)
 
@@ -138,7 +139,7 @@ def compile_train_model(data_augmentation):
                           depth=IMAGE_DIMS[2],
                           classes=len(lb.classes_))
 
-    opt = Adam(lr=INIT_LR,
+    opt = Adam(learning_rate=INIT_LR,
                decay=INIT_LR / EPOCHS)
 
     model.compile(loss="categorical_crossentropy",
