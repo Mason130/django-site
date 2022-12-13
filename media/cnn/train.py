@@ -47,9 +47,9 @@ def get_arguments():
                     help="path to output label binarizer")
     ap.add_argument("-p", "--plot", type=str, default="plot.png",
                     help="path to output accuracy/loss plot")
-    args = vars(ap.parse_args())
+    arguments = vars(ap.parse_args())
 
-    return args
+    return arguments
 
 
 def print_history_accuracy(history):
@@ -73,14 +73,14 @@ def print_history_loss(history):
 
 
 def load_dataset(img_dims):
-    args = get_arguments()
+    arguments = get_arguments()
     # initialize the image dimensions
     data = []
     labels = []
 
     # Shuffle data.
     print("[INFO] loading images...")
-    image_paths = sorted(list(paths.list_images(args["dataset"])))
+    image_paths = sorted(list(paths.list_images(arguments["dataset"])))
     print(image_paths)
     random.seed(42)
     random.shuffle(image_paths)
@@ -116,7 +116,7 @@ def load_dataset(img_dims):
 
 
 def compile_train_model(data_augmentation):
-    args = get_arguments()
+    arguments = get_arguments()
 
     """
     Hyperparameters
@@ -127,7 +127,7 @@ def compile_train_model(data_augmentation):
     """
     EPOCHS = 100
     INIT_LR = 2e-5
-    BS = 15
+    BS = 32
     # BS = 32
     IMAGE_DIMS = (96, 96, 3)
     train_x, test_x, train_y, test_y, lb = load_dataset(IMAGE_DIMS)
@@ -189,11 +189,11 @@ def compile_train_model(data_augmentation):
 
     # Save the model to disk
     print("[INFO] serializing network...")
-    model.save(args["model"])
+    model.save(arguments["model"])
 
     # Save the label binarizer to disk
     print("[INFO] serializing label binarizer...")
-    f = open(args["labelbin"], "wb")
+    f = open(arguments["labelbin"], "wb")
     f.write(pickle.dumps(lb))
     f.close()
 
