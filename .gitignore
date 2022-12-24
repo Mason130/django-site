@@ -13,6 +13,5 @@ db_info.txt
 
 # training dataset
 media/cnn/C3PI_dataset/
-media/cnn/requirements.txt
 media/cnn/pillidentifier.model/
 media/cnn/log/
